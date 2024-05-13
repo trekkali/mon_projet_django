@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Liens vers les fichiers CSS de Bootstrap et Font Awesome -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Thème de gradient personnalisé */
+        .gradient-custom-2 {
+            background: #fccb90; /* Fallback pour les anciens navigateurs */
+            background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+        /* Style du menu latéral */
+        .sidebar, .navbar {
+            background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+            color: white;
+            font-family: Arial, sans-serif; /* Changer la police du texte */
+        }
+
+        .sidebar {
+            height: calc(100vh - 56px);
+            padding-top: 20px;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            bottom: 0;
+            width: 200px;
+            z-index: 1000;
+        }
+
+        .sidebar-heading {
+            padding: 20px;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .sidebar-menu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            padding: 10px 20px;
+        }
+
+        .sidebar-menu li:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none; /* Cacher le panneau latéral sur les petits écrans */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre de navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><i class="fas fa-tachometer-alt"></i> Bonjour, {{ request.user.username }}</a>
+        <!-- Ajout du nom d'utilisateur ici -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto"> <!-- Alignement à droite -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><i class="fas fa-moon"></i></a> <!-- Icône pour changer le thème -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-bell"></i></a> <!-- Icône pour les notifications -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-bars"></i></a> <!-- Icône pour le menu -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-user"></i></a> <!-- Icône pour le profil -->
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenu du dashboard -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Panneau latéral -->
+            <div class="col-md-2 sidebar d-none d-md-block">
+                <ul class="sidebar-menu">
+                    <li><i class="fas fa-home"></i> Page 1</li> <!-- Icône et texte pour chaque élément du menu -->
+                    <li><i class="fas fa-cog"></i> Page 2</li>
+                    <li><i class="fas fa-user"></i> Page 3</li>
+                </ul>
+            </div>
+            <!-- Contenu principal -->
+            <div class="col-md-10 offset-md-2"> <!-- Ajout d'une marge à gauche pour éviter la superposition -->
+                <div class="container mt-5">
+                    <h1 class="text-center mb-4">Mon Dashboard</h1> <!-- Titre du dashboard -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Titre de la carte</h5>
+                                    <p class="card-text">Quelques détails sur cette carte.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Titre de la carte</h5>
+                                    <p class="card-text">Quelques détails sur cette carte.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Titre de la carte</h5>
+                                    <p class="card-text">Quelques détails sur cette carte.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Liens vers les fichiers JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
