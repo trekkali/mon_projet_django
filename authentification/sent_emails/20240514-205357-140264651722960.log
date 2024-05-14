@@ -1,0 +1,26 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: andysemariel@gmail.com
+Date: Tue, 14 May 2024 20:53:57 -0000
+Message-ID: 
+ <171572003769.50922.10041705873674518856@beugreandysemariel-IdeaPad-3-15IGL05>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/reset/Mg/c71bdx-a32389bdea00461bcc994c9943a96666/
+
+Your username, in case you’ve forgotten: andy13
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------
