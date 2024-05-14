@@ -5,8 +5,11 @@ from django import forms
 from django.contrib import messages  # Ajout de l'import pour les messages d'erreur
 from .forms import SignUpForm  # Importez votre formulaire SignUpForm
 from .forms import LoginForm
+from django.contrib.auth import logout
 
 def signup(request):
+    email_exists = False  # Initialiser la variable à False
+
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -17,8 +20,9 @@ def signup(request):
             subscribe_to_newsletter = form.cleaned_data['subscribe_to_newsletter']
             user = User.objects.filter(username=email).first()
             if user is not None:
-                messages.error(request, "User with this email already exists.")
-                return render(request, 'signup.html', {'form': form})
+                email_exists = True  # Mettre à True si l'e-mail existe déjà
+                # messages.error(request, "User with this email already exists.")
+                # return render(request, 'signup.html', {'form': form})
             else:
                 user = User.objects.create_user(username=email, email=email, password=password, first_name=first_name, last_name=last_name)
                 # Authentifier et connecter l'utilisateur nouvellement créé
@@ -32,9 +36,13 @@ def signup(request):
             return render(request, 'signup.html', {'form': form})
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'signup.html', {'form': form, 'email_exists': email_exists})
 
 
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')  # Redirige vers la page de connexion
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)

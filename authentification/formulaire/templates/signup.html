@@ -17,6 +17,7 @@
         /* Centrer la page sur les grands écrans */
         body, html {
             height: 100%;
+            overflow-y: auto;
         }
 
         .background-radial-gradient {
@@ -30,7 +31,18 @@
             margin: 0;
         }
 
-        /* Réduire la taille des formes */
+        /* Réduire la taille du cadre sur les grands écrans */
+        .card.bg-glass {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        /* Réduire la hauteur du cadre */
+        .card.bg-glass .card-body {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
         #radius-shape-1 {
             height: 180px;
             width: 180px;
@@ -49,111 +61,105 @@
 </head>
 <body>
     <!-- Section: Design Block -->
-    <!-- Section: Design Block -->
-<section class="background-radial-gradient overflow-hidden">
-    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
-        <div class="row gx-lg-5 align-items-center mb-5">
-            <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-                <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-                    The best offer <br />
-                    <span style="color: hsl(218, 81%, 75%)">for your business</span>
-                </h1>
-                <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus, expedita iusto veniam atque, magni tempora mollitia dolorum consequatur nulla, neque debitis eos reprehenderit quasi ab ipsum nisi dolorem modi. Quos?
-                </p>
-            </div>
+    <section class="background-radial-gradient">
+        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+            <div class="row gx-lg-5 align-items-center mb-5">
+                <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                    <h1 class="my-4 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                        Bienvenue <br />
+                        <span style="color: hsl(218, 81%, 75%)">pour votre entreprise</span>
+                    </h1>
+                    <p class="mb-3 opacity-70" style="color: hsl(218, 81%, 85%)">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus, expedita iusto veniam atque, magni tempora mollitia dolorum consequatur nulla, neque debitis eos reprehenderit quasi ab ipsum nisi dolorem modi. Quos?
+                    </p>
+                </div>
 
-            <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
-                <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-                <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+                <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                    <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+                    <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 
-                <div class="card bg-glass">
-                    <div class="card-body px-4 py-5 px-md-5">
-                        <form method="POST">
-                            {% csrf_token %}
-                            <!-- Champs du formulaire Django personnalisé -->
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    {{ form.first_name.errors }}
-                                    <label for="{{ form.first_name.id_for_label }}" class="form-label">{{ form.first_name.label }}</label>
-                                    {{ form.first_name }}
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    {{ form.last_name.errors }}
-                                    <label for="{{ form.last_name.id_for_label }}" class="form-label">{{ form.last_name.label }}</label>
-                                    {{ form.last_name }}
-                                </div>
+                    <div class="card bg-glass">
+                        <div class="card-body px-4 py-5 px-md-5">
+                            <h1 class="mb-4">Bienvenue, inscrivez-vous !</h1>
+                            {% if email_exists %}
+                            <div class="alert alert-danger" role="alert">
+                                L'adresse e-mail est déjà enregistrée.
                             </div>
-                            
-                            <div class="row">
-                                <div class="col-md-12 mb-4">
-                                    {{ form.email.errors }}
-                                    <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
-                                    {{ form.email }}
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-12 mb-4">
-                                    {{ form.password.errors }}
-                                    <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
-                                    {{ form.password }}
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-12 mb-4">
-                                    {{ form.subscribe_to_newsletter.errors }}
-                                    <div class="form-check">
-                                        {{ form.subscribe_to_newsletter }}
-                                        <label class="form-check-label" for="{{ form.subscribe_to_newsletter.id_for_label }}">{{ form.subscribe_to_newsletter.label }}</label>
+                            {% endif %}
+                            <form method="POST" onsubmit="return validateForm()">
+                                {% csrf_token %}
+                                <!-- Champs du formulaire Django personnalisé -->
+                                <div class="row">
+                                    <div class="col-md-6 mb-2">
+                                        {{ form.first_name.errors }}
+                                        <label for="{{ form.first_name.id_for_label }}" class="form-label"></label>
+                                        <!-- Supprimez l'attribut value -->
+                                        <input type="text" class="form-control" id="{{ form.first_name.id_for_label }}" name="{{ form.first_name.name }}" placeholder="Enter your first name">
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        {{ form.last_name.errors }}
+                                        <label for="{{ form.last_name.id_for_label }}" class="form-label"></label>
+                                        <!-- Supprimez l'attribut value -->
+                                        <input type="text" class="form-control" id="{{ form.last_name.id_for_label }}" name="{{ form.last_name.name }}" placeholder="Enter your last name">
+                                    </div>
+                                    <div class="col-md-12 mb-2">
+                                        {{ form.email.errors }}
+                                        <label for="{{ form.email.id_for_label }}" class="form-label"></label>
+                                        <!-- Supprimez l'attribut value -->
+                                        <input type="email" class="form-control" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}" placeholder="Enter your email address">
+                                    </div>
+                                    <div class="col-md-12 mb-2">
+                                        {{ form.password.errors }}
+                                        <label for="{{ form.password.id_for_label }}" class="form-label"></label>
+                                        <!-- Supprimez l'attribut value -->
+                                        <input type="password" class="form-control" id="{{ form.password.id_for_label }}" name="{{ form.password.name }}" placeholder="Enter your password">
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-12 mb-4">
-                                    <!-- Afficher les erreurs de formulaire -->
-                                    {% for error in form.non_field_errors %}
-                                        <p>{{ error }}</p>
-                                    {% endfor %}
+                                <!-- Ajouter le checkbox "Se souvenir de moi" -->
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="rememberMe">
+                                            <label class="form-check-label" for="rememberMe">
+                                                Se souvenir de moi
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            
-
-                            <!-- Bouton de soumission -->
-                            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
-                                Sign up
-                            </button>
-
-                            <!-- Boutons d'enregistrement -->
-                            <div class="text-center">
-                                <p>or sign up with:</p>
-                                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-facebook-f"></i>
+                                <div class="row">
+                                    <div class="col-md-12 mb-4">
+                                        <!-- Afficher les erreurs de formulaire -->
+                                        {% for error in form.non_field_errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!-- Bouton de soumission -->
+                                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
+                                    Sign up
                                 </button>
-
-                                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-google"></i>
-                                </button>
-
-                                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-twitter"></i>
-                                </button>
-
-                                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-github"></i>
-                                </button>
-                            </div>
-                        </form>
+                            </form>
+                            <!-- Ajout du lien vers la page de connexion -->
+                            <p>Already have an account? <a href="{% url 'login' %}">Log in here</a>.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- Section: Design Block -->
-
+    </section>
     <!-- Section: Design Block -->
+    <script>
+        function validateForm() {
+            var firstName = document.getElementById("{{ form.first_name.id_for_label }}").value;
+            var lastName = document.getElementById("{{ form.last_name.id_for_label }}").value;
+            var email = document.getElementById("{{ form.email.id_for_label }}").value;
+            var password = document.getElementById("{{ form.password.id_for_label }}").value;
+
+            if (firstName.trim() == '' || lastName.trim() == '' || email.trim() == '' || password.trim() == '') {
+                alert("Please fill in all fields.");
+                return false;
+            }
+        }
+    </script>
 </body>
 </html>
