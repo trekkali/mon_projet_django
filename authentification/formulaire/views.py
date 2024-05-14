@@ -69,3 +69,6 @@ def dashboard(request):
 
 def reset(request):
     return render(request, 'reset.html')
+
+def password_reset_confirm(request):
+    return render(request, 'password_reset_confirm.html')
