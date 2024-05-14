@@ -112,8 +112,13 @@ USE_I18N = True
 
 USE_TZ = True
 
-EMAIL_BACKEND  =  "django.core.mail.backends.filebased.EmailBackend" 
-EMAIL_FILE_PATH  =  BASE_DIR  /  "sent_emails"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # ou tout autre serveur SMTP que vous utilisez
+EMAIL_PORT = 587  # le port SMTP (587 est couramment utilisé pour TLS)
+EMAIL_HOST_USER = 'andysemariel@gmail.com'  # votre adresse e-mail
+EMAIL_HOST_PASSWORD = 'Mareine13'  # votre mot de passe
+EMAIL_USE_TLS = True  # utilisez TLS (True) ou SSL (False) pour le chiffrement
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
